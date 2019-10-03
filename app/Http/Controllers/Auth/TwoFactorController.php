@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Notifications\TwoFactorCode;
 use Illuminate\Http\Request;
-use Illuminate\Support\MessageBag;
 
 class TwoFactorController extends Controller
 {
@@ -34,14 +33,14 @@ class TwoFactorController extends Controller
             return redirect()->route('admin.home');
         }
 
-        $errors = new MessageBag();
-        $errors->add('two_factor_code', 'The two factor code you have entered does not match');
-        return redirect()->back()->withErrors($errors);
+        return redirect()->back()->withErrors(['two_factor_code' => 'The two factor code you have entered does not match']);
     }
 
     public function resend()
     {
-        auth()->user()->notify(new TwoFactorCode());
+        $user = auth()->user();
+        $user->generateTwoFactorCode();
+        $user->notify(new TwoFactorCode());
 
         return redirect()->back()->withMessage('The two factor code has been sent again');
     }
