@@ -5,9 +5,9 @@
         <div class="card-group">
             <div class="card p-4">
                 <div class="card-body">
-                    @if(\Session::has('message'))
+                    @if(session()->has('message'))
                         <p class="alert alert-info">
-                            {{ \Session::get('message') }}
+                            {{ session()->get('message') }}
                         </p>
                     @endif
                     <form method="POST" action="{{ route('verify.store') }}">
