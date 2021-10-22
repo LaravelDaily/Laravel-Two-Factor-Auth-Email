@@ -18,7 +18,7 @@ class TwoFactor
         $user = auth()->user();
 
         if(auth()->check() && $user->two_factor_code)
-        {            
+        {
             if($user->two_factor_expires_at<now()) //expired
             {
                 $user->resetTwoFactorCode();
