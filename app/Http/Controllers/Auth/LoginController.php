@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Notifications\TwoFactorCode;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use App\Notifications\TwoFactorCode;
 
 class LoginController extends Controller
 {
