@@ -70,17 +70,25 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    /**
+     * Generate 6 digits MFA code for the User
+     */
     public function generateTwoFactorCode()
     {
-        $this->timestamps = false;
+        $this->timestamps = false; //Dont update the 'updated_at' field yet
+        
         $this->two_factor_code = rand(100000, 999999);
         $this->two_factor_expires_at = now()->addMinutes(10);
         $this->save();
     }
 
+    /**
+     * Reset the MFA code generated earlier
+     */
     public function resetTwoFactorCode()
     {
-        $this->timestamps = false;
+        $this->timestamps = false; //Dont update the 'updated_at' field yet
+        
         $this->two_factor_code = null;
         $this->two_factor_expires_at = null;
         $this->save();
