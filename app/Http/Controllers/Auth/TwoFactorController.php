@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Notifications\TwoFactorCode;
 use Illuminate\Http\Request;
-use App\Notifications\TwoFactorCode;
 
 class TwoFactorController extends Controller
 {
