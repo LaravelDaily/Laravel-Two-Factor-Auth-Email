@@ -19,15 +19,16 @@ class TwoFactor
 
         if(auth()->check() && $user->two_factor_code)
         {
-            if($user->two_factor_expires_at->lt(now()))
+            if($user->two_factor_expires_at<now()) //expired
             {
                 $user->resetTwoFactorCode();
                 auth()->logout();
 
-                return redirect()->route('login')->withMessage('The two factor code has expired. Please login again.');
+                return redirect()->route('login')
+                ->withMessage('The two factor code has expired. Please login again.');
             }
 
-            if(!$request->is('verify*'))
+            if(!$request->is('verify*')) //prevent enless loop, otherwise send to verify
             {
                 return redirect()->route('verify.index');
             }
